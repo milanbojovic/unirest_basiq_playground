@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "80081434-f5da-7ca6-efb5-f81a6e99d45c",
+		"name": "Basiq",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GenerateAccessToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca84a40e-a38b-498c-89c8-be2964864db6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get access token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"access_token\", jsonData.access_token);\r",
+							"    console.log(\"access_token\", jsonData.access_token);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic MWFiNjRkNzEtN2U4Zi00ZmE0LTk0MjctNzA2NmU4MTc2ZTA1OjM0YTM4MWQwLWVkZGEtNDlmNS04NTNlLTlmMGZkYWE3ZDM2YQ=="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "basiq-version",
+						"value": "2.0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "scope=SERVER_ACCESS"
+				},
+				"url": {
+					"raw": "https://au-api.basiq.io/token",
+					"protocol": "https",
+					"host": [
+						"au-api",
+						"basiq",
+						"io"
+					],
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca84a40e-a38b-498c-89c8-be2964864db6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get access token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"access_token\", jsonData.access_token);\r",
+							"    console.log(\"access_token\", jsonData.access_token);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"test@mailinator\",\n  \"mobile\": \"+381606356462\"\n}"
+				},
+				"url": {
+					"raw": "https://au-api.basiq.io/users",
+					"protocol": "https",
+					"host": [
+						"au-api",
+						"basiq",
+						"io"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://au-api.basiq.io/users/92e9ce24-bdf5-44b3-b77f-c3781686640d",
+					"protocol": "https",
+					"host": [
+						"au-api",
+						"basiq",
+						"io"
+					],
+					"path": [
+						"users",
+						"92e9ce24-bdf5-44b3-b77f-c3781686640d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca84a40e-a38b-498c-89c8-be2964864db6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Get access token\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.environment.set(\"access_token\", jsonData.access_token);\r",
+							"    console.log(\"access_token\", jsonData.access_token);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"test@mailinator\",\n  \"mobile\": \"+381606356462\"\n}"
+				},
+				"url": {
+					"raw": "https://au-api.basiq.io/users/f2109e27-f17c-4d77-86aa-b9d16b6acc71",
+					"protocol": "https",
+					"host": [
+						"au-api",
+						"basiq",
+						"io"
+					],
+					"path": [
+						"users",
+						"f2109e27-f17c-4d77-86aa-b9d16b6acc71"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateConnection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca84a40e-a38b-498c-89c8-be2964864db6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"loginId\": \"Wentworth-Smith\",\n \"password\": \"whislter\",\n \"institution\":{\n   \"id\":\"AU00000\"\n }\n}"
+				},
+				"url": {
+					"raw": "https://au-api.basiq.io/users/ea3a81/connections",
+					"protocol": "https",
+					"host": [
+						"au-api",
+						"basiq",
+						"io"
+					],
+					"path": [
+						"users",
+						"ea3a81",
+						"connections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListConnections",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca84a40e-a38b-498c-89c8-be2964864db6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://au-api.basiq.io/users/92e9ce24-bdf5-44b3-b77f-c3781686640d/connections",
+					"protocol": "https",
+					"host": [
+						"au-api",
+						"basiq",
+						"io"
+					],
+					"path": [
+						"users",
+						"92e9ce24-bdf5-44b3-b77f-c3781686640d",
+						"connections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetJobById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca84a40e-a38b-498c-89c8-be2964864db6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://au-api.basiq.io/jobs/8eb8678c-4754-42d0-8321-25f681a37ee5",
+					"protocol": "https",
+					"host": [
+						"au-api",
+						"basiq",
+						"io"
+					],
+					"path": [
+						"jobs",
+						"8eb8678c-4754-42d0-8321-25f681a37ee5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllTransactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca84a40e-a38b-498c-89c8-be2964864db6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://au-api.basiq.io/users/92e9ce24-bdf5-44b3-b77f-c3781686640d/transactions",
+					"protocol": "https",
+					"host": [
+						"au-api",
+						"basiq",
+						"io"
+					],
+					"path": [
+						"users",
+						"92e9ce24-bdf5-44b3-b77f-c3781686640d",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
