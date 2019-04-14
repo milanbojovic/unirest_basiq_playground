@@ -9,6 +9,7 @@ import java.util.Base64;
 import org.junit.Test;
 
 import io.basiq.http.UnirestClient;
+import io.basiq.http.json.CreateUserRequest;
 
 public class UnirestClientTests {
 
@@ -22,5 +23,20 @@ public class UnirestClientTests {
 
 		assertNotEquals("", accessToken);
 		assertTrue(accessToken.length() > 0);
+	}
+
+	@Test
+	public void createUserTest() throws IOException {
+		byte[] decodedApiKey = Base64.getDecoder().decode("TVdGaU5qUmtOekV0TjJVNFppMDBabUUwTFRrME1qY3ROekEyTm1VNE1UYzJaVEExT2pNMFlUTTRNV1F3TFdWa1pHRXRORGxtTlMwNE5UTmxMVGxtTUdaa1lXRTNaRE0yWVE9PQ==");
+		String apiKey = new String(decodedApiKey);
+
+		UnirestClient client = new UnirestClient("https://au-api.basiq.io", apiKey);
+		String accessToken = client.getAccessToken();
+
+		CreateUserRequest createUserRequest = new CreateUserRequest("apiuser@mbsoftwaresolutions.com", "+381601111111");
+		String userId = client.createUser(accessToken, createUserRequest);
+
+		assertNotEquals("", userId);
+		assertTrue(userId.length() > 0);
 	}
 }
