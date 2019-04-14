@@ -1,5 +1,5 @@
 package io.basiq.http;
 
 public enum HttpMethodsEnum {
-	GetToken, CreateUser
+	GetToken, CreateUser, CreateGetConnection
 }

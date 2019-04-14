@@ -5,7 +5,6 @@ public class CreateUserRequest {
 	String mobile;
 
 	public CreateUserRequest(String email, String mobile) {
-		super();
 		this.email = email;
 		this.mobile = mobile;
 	}
