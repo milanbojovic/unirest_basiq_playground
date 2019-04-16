@@ -6,4 +6,12 @@ public class Institution {
 	public Institution(String id) {
 		this.id = id;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

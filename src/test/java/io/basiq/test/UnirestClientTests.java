@@ -9,20 +9,20 @@ import java.util.Base64;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import io.basiq.http.UnirestClient;
-import io.basiq.http.json.CreateConnectionRequest;
-import io.basiq.http.json.CreateUserRequest;
+import io.basiq.BasiqClient;
+import io.basiq.http.json.CreateConnection;
+import io.basiq.http.json.CreateUser;
 
 public class UnirestClientTests {
 	static String encodedApiKey = "TVdGaU5qUmtOekV0TjJVNFppMDBabUUwTFRrME1qY3ROekEyTm1VNE1UYzJaVEExT2pNMFlUTTRNV1F3TFdWa1pHRXRORGxtTlMwNE5UTmxMVGxtTUdaa1lXRTNaRE0yWVE9PQ==";
 	static String apiKey;
-	static UnirestClient httpClient;
+	static BasiqClient httpClient;
 
 	@BeforeClass
 	public static void decodeApiKey() {
 		byte[] decodedApiKey = Base64.getDecoder().decode(encodedApiKey);
 		apiKey = new String(decodedApiKey);
-		httpClient = new UnirestClient("https://au-api.basiq.io", apiKey);
+		httpClient = new BasiqClient("https://au-api.basiq.io", apiKey);
 	}
 
 	@Test
@@ -37,7 +37,7 @@ public class UnirestClientTests {
 	public void createUserTest() throws IOException {
 		String accessToken = httpClient.getAccessToken();
 
-		CreateUserRequest createUserRequest = new CreateUserRequest("apiuser@mbsoftwaresolutions.com", "+381601111111");
+		CreateUser createUserRequest = new CreateUser("apiuser@mbsoftwaresolutions.com", "+381601111111");
 		String userId = httpClient.createUser(accessToken, createUserRequest);
 
 		assertNotEquals("", userId);
@@ -48,10 +48,10 @@ public class UnirestClientTests {
 	public void createUserBankConnectionTest() throws IOException {
 		String accessToken = httpClient.getAccessToken();
 
-		CreateUserRequest createUserRequest = new CreateUserRequest("apiuser@mbsoftwaresolutions.com", "+381601111111");
+		CreateUser createUserRequest = new CreateUser("apiuser@mbsoftwaresolutions.com", "+381601111111");
 		String userId = httpClient.createUser(accessToken, createUserRequest);
 
-		CreateConnectionRequest connectionRequest = new CreateConnectionRequest("Wentworth-Smith", "whislter", "AU00000");
+		CreateConnection connectionRequest = new CreateConnection("Wentworth-Smith", "whislter", "AU00000");
 		String connection = httpClient.createConnection(accessToken, connectionRequest, userId);
 		assertNotEquals("", connection);
 		assertTrue(connection.length() > 0);
