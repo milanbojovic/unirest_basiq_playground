@@ -34,4 +34,9 @@ public class CreateConnection {
 	public void setInstitution(Institution institution) {
 		this.institution = institution;
 	}
+
+	@Override
+	public String toString() {
+		return "CreateConnection [loginId=" + loginId + ", password=" + password + ", institution=" + institution + "]";
+	}
 }

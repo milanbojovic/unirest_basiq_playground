@@ -24,4 +24,9 @@ public class CreateUser {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+
+	@Override
+	public String toString() {
+		return "CreateUser [email=" + email + ", mobile=" + mobile + "]";
+	}
 }

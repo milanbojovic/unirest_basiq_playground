@@ -45,4 +45,10 @@ public class Links {
 	public void setAccount(String account) {
 		this.account = account;
 	}
+
+	@Override
+	public String toString() {
+		return "Links [institution=" + institution + ", self=" + self + ", connection=" + connection + ", account="
+				+ account + "]";
+	}
 }

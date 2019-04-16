@@ -14,4 +14,9 @@ public class Institution {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+	@Override
+	public String toString() {
+		return "Institution [id=" + id + "]";
+	}
 }

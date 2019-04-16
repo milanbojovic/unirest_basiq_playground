@@ -171,4 +171,14 @@ public class Transaction {
 	public void setLinks(Links links) {
 		this.links = links;
 	}
+
+	@Override
+	public String toString() {
+		return "Transaction [amount=" + amount + ", subClass=" + subClass + ", description=" + description + ", type="
+				+ type + ", transactionDate=" + transactionDate + ", institution=" + institution + ", balance="
+				+ balance + ", bankCategory=" + bankCategory + ", postDate=" + postDate + ", connection=" + connection
+				+ ", id=" + id + ", clazz=" + clazz + ", account=" + account + ", status=" + status + ", direction="
+				+ direction + ", links=" + links + "]";
+	}
+
 }
