@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import io.basiq.BasiqClient;
+import io.basiq.TransactionsSummary;
 import io.basiq.http.json.CreateConnection;
 import io.basiq.http.json.CreateUser;
 
@@ -55,5 +56,20 @@ public class UnirestClientTests {
 		String connection = httpClient.createConnection(accessToken, connectionRequest, userId);
 		assertNotEquals("", connection);
 		assertTrue(connection.length() > 0);
+	}
+
+	@Test
+	public void createUserBankConnectionGetTransactionsTest() throws IOException {
+		String accessToken = httpClient.getAccessToken();
+
+		CreateUser createUserRequest = new CreateUser("apiuser@mbsoftwaresolutions.com", "+381601111111");
+		String userId = httpClient.createUser(accessToken, createUserRequest);
+
+		CreateConnection connectionRequest = new CreateConnection("Wentworth-Smith", "whislter", "AU00000");
+		httpClient.createConnection(accessToken, connectionRequest, userId);
+
+		TransactionsSummary transactionSummary = httpClient.getUsersTransactions(accessToken, userId);
+
+		assertNotEquals(transactionSummary.getCategoryTotalsMap().size(), 0);
 	}
 }
