@@ -26,7 +26,6 @@ public class BasiqClient {
 	JsonParser parser;
 	Gson gson;
 
-
 	Map<HttpMethods, String> httpMap = new HashMap<HttpMethods, String>(){
 		private static final long serialVersionUID = 5031329264272758950L;
 		{
@@ -64,6 +63,7 @@ public class BasiqClient {
 	public String getAccessToken() {
 		String result = null;
 		try {
+			LOGGER.fine("Creating accessToken");
 			String requestUrl = webAddress + httpMap.get(HttpMethods.GetToken);
 			HttpResponse<String> httpResponse = httpClient.httpGetAccessToken(requestUrl);
 
@@ -72,6 +72,7 @@ public class BasiqClient {
 			JsonObject jsonResponse = parser.parse(httpResponse.getBody()).getAsJsonObject();
 			result = jsonResponse.get("access_token").getAsString();
 		} catch (UnirestException e) {
+			LOGGER.severe(e.toString());
 			e.printStackTrace();
 		}
 		return result;
@@ -80,6 +81,7 @@ public class BasiqClient {
 	public String createUser(String accessToken, CreateUser user) {
 		String result = null;
 		try {
+			LOGGER.fine("Creating user " + user.toString());
 			String requestUrl = webAddress + httpMap.get(HttpMethods.CreateUser);
 			String userJson = gson.toJson(user, CreateUser.class);
 			HttpResponse<String> httpResponse = httpClient.executeHttpCreateUser(accessToken, requestUrl, userJson);
@@ -98,6 +100,8 @@ public class BasiqClient {
 	public String createConnection(String accessToken, CreateConnection connectionRequest, String userId) {
 		String result = null;
 		try {
+			LOGGER.fine(
+					"Creating connection for userid " + userId + " connection request " + connectionRequest.toString());
 			String connectionEndpoint = httpMap.get(HttpMethods.CreateConnection).replace("{user.id}", userId);
 			String requestUrl = webAddress + connectionEndpoint;
 			String connectionJson = gson.toJson(connectionRequest, CreateConnection.class);
@@ -115,6 +119,7 @@ public class BasiqClient {
 	public String getUsersConnections(String accessToken, String userId) {
 		String result = null;
 		try {
+			LOGGER.fine("Getting connections for userId: " + userId);
 			String connectionEndpoint = httpMap.get(HttpMethods.GetConnection).replace("{user.id}", userId);
 			String requestUrl = webAddress + connectionEndpoint;
 			HttpResponse<String> httpResponse = httpClient.httpGetUsersConnectins(accessToken, requestUrl);
@@ -144,6 +149,7 @@ public class BasiqClient {
 		TransactionsSummary transactionSummary = new TransactionsSummary();
 
 		try {
+			LOGGER.fine("Listing all user transactions for userId: " + userId);
 			String connectionEndpoint = httpMap.get(HttpMethods.GetTransactions).replace("{user.id}", userId);
 			String requestUrl = webAddress + connectionEndpoint;
 
@@ -168,7 +174,7 @@ public class BasiqClient {
 			throws InterruptedException, UnirestException {
 		int iterationWaitTime = 30;
 		int repetitionsCnt = maxWaitTime / iterationWaitTime;
-
+		LOGGER.fine("Waiting for data preparation: maxWaitTime=" + maxWaitTime + "s.");
 		JsonElement jsonResponse = executeGetTransactions(accessToken, requestUrl);
 		int count = getCount(jsonResponse);
 
@@ -188,7 +194,7 @@ public class BasiqClient {
 		int count;
 		int iterationWaitTime = 5;
 		int repetitionsCnt = maxWaitTime / iterationWaitTime;
-
+		LOGGER.fine("Waiting for consistent data: maxWaitTime=" + maxWaitTime + "s.");
 		jsonResponse = executeGetTransactions(accessToken, requestUrl);
 		count = getCount(jsonResponse);
 
@@ -219,7 +225,7 @@ public class BasiqClient {
 
 		for (JsonElement jsonTransaction : data) {
 			Transaction transaction = gson.fromJson(jsonTransaction, Transaction.class);
-			transactionsSummary.addTransaction(transaction);
+			transactionsSummary.processTransaction(transaction);
 		}
 	}
 
