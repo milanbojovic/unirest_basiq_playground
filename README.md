@@ -38,7 +38,7 @@ $ git clone git@github.com:milanbojovic/unirest_basiq_playground.git
   - Import in editor of your choice and run with parameter api key as parameter to main method
 
 ### Example output:
-![Example program output](https://raw.githubusercontent.com/milanbojovic/unirest_basiq_playground/master/images/Example_output.png?token=AHd1_kZeYiOeutW4sHDEgKrQNfTXe15yks5ctmmZwA%3D%3D)
+![Example program output](https://github.com/milanbojovic/unirest_basiq_playground/blob/master/images/Example_output.png)
 
 **Have fun !**
 
